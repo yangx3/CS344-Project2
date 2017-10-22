@@ -82,15 +82,18 @@ static void sstf_add_request(struct request_queue *q, struct request *rq)
 
 	if (list_empty(&nd->queue))
 	   list_add(&rq->queuelist, &nd->queue);
+   
+   
+	if (list_empty(&nd->queue)){
+		next_rq = list_entry(nd->queue.next, struct request, queuelist);
+		prev_rq = list_entry(nd->queue.prev, struct request, queuelist);
 
-	next_rq = list_entry(nd->queue.next, struct request, queuelist);
-	prev_rq = list_entry(nd->queue.prev, struct request, queuelist);
+		/*To position*/
+		while (blk_rq_pos(rq) > blk_rq_pos(next_rq)){
+			next_rq = list_entry(next_rq->queuelist.next, struct request, queuelist);
+			prev_rq = list_entry(prev_rq->queuelist.prev, struct request, queuelist);
 
-	/*To position*/
-	while (blk_rq_pos(rq) > blk_rq_pos(next_rq)){
-	   next_rq = list_entry(next_rq->queuelist.next, struct request, queuelist);
-	   prev_rq = list_entry(prev_rq->queuelist.prev, struct request, queuelist);
-
+		}	
 	}
 	list_add_tail(&rq->queuelist, &prev_rq->queuelist);
 }

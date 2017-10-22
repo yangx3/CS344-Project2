@@ -1,5 +1,5 @@
 #
-# Makefile for the kernel block layer
+# Makefile for the kernel block layer, add sstf-iosched.o
 #
 
 obj-$(CONFIG_BLOCK) := bio.o elevator.o blk-core.o blk-tag.o blk-sysfs.o \

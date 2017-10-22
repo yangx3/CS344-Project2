@@ -16,7 +16,7 @@ config IOSCHED_SSTF
 	bool
 	default y
 	---help---
-	  Project 2 from group 34: the SSTF I/O Scheduler
+	  CS 344, Project 2 from group 34: the SSTF I/O Scheduler.
 
 config IOSCHED_DEADLINE
 	tristate "Deadline I/O scheduler"
